@@ -1,0 +1,21 @@
+header {
+  background-color: var(--color-dark-green);
+  padding: 1rem 2rem;
+}
+
+
+.header-div {
+  background-image: url("images/background.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-size: cover;
+  background-position: center center;
+  height: 40vh;
+}
+
+header h1 {
+    color: var(--color-gold);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    padding: 10px;
+}

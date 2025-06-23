@@ -1,0 +1,40 @@
+.compendium-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    justify-content: center; 
+}
+
+.compendium-card {
+    background-color: var(--color-background);
+    border: 2px solid var(--color-dark-green);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    text-transform: capitalize;
+    transition: transform 0.25s ease, opacity 0.35s ease;
+    background-color: var(--color-background);
+}
+
+
+.compendium-card:hover {
+    transform: scale(1.05);
+}
+
+.compendium-card h2 {
+    font-size: large;
+}
+
+.compendium-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+    border-radius: 10px;
+}
+
+.full-main {
+    padding: 1rem;
+}
