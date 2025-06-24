@@ -21,6 +21,7 @@
 
 .compendium-card:hover {
     transform: scale(1.05);
+    border: 2px solid var(--color-gold)
 }
 
 .compendium-card h2 {
