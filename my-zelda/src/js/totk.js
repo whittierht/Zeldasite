@@ -1,4 +1,4 @@
-import { getAllCompendium } from "./api.js";
+import { getAllTOTK } from "./api.js";
 import { loadPartial, hamburger } from "./utils.js";
 
 async function init() {
@@ -8,7 +8,7 @@ async function init() {
     hamburger();
 
         const listContainer = document.querySelector(".compendium-list");
-        const items = await getAllCompendium();
+        const items = await getAllTOTK();
 
         items.sort((a, b) => a.name.localeCompare(b.name));
 

@@ -9,6 +9,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'src/index.html'),
         full: resolve(__dirname, 'src/compendium/full.html'),
+        botw: resolve(__dirname, 'src/compendium/botw.html'),
+        totk: resolve(__dirname, 'src/compendium/totk.html')
       },
     },
   },
