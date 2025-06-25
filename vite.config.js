@@ -11,7 +11,8 @@ export default defineConfig({
         main: resolve(__dirname, 'src/index.html'),
         full: resolve(__dirname, 'src/compendiums/full.html'),
         botw: resolve(__dirname, 'src/compendiums/botw.html'),
-        totk: resolve(__dirname, 'src/compendiums/totk.html')
+        totk: resolve(__dirname, 'src/compendiums/totk.html'),
+        item: resolve(__dirname, 'src/compendiums/item.html')
       },
     },
   },

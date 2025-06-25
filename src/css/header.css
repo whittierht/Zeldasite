@@ -5,17 +5,23 @@ header {
 
 
 .header-div {
-  background-image: url("/images/background.webp");
+  margin-top: 20px;
+  background-image: url("/images/background-repeat.png");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-attachment: fixed;
   background-size: cover;
   background-position: center center;
   height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;;
 }
 
-header h1 {
-    color: var(--color-light-gold);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-    text-align: center;
-    padding: 10px;
+.header-div h1 {
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 3);
+  padding: 10px;
+  text-align: center;
+  font-size: 2rem; 
 }

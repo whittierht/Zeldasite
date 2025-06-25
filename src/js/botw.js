@@ -13,7 +13,7 @@ async function init() {
         items.sort((a, b) => a.name.localeCompare(b.name));
 
         listContainer.innerHTML = items.map(item => `
-        <a href="#" class="compendium-card">
+        <a href="/compendiums/item.html?id=${item.id}" class="compendium-card">
             <img src="${item.image}" alt="${item.name}" />
             <h2>${item.name}</h2>
         </a>

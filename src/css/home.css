@@ -1,19 +1,22 @@
 
-.home-main {
-  position: relative;
-  max-width: 1600px;
-  margin: auto;
 
-  background-color: var(--color-background);
-  border-radius: 10px;
-  overflow: hidden;
-}
 
 
 .mainheader{
     padding-top: 20px;
     text-align: center;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.mainheader1 {
+    padding: 10px 20px; 
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    background-color: var(--color-background);
+    display: inline-block; 
+    border-radius: 8px; 
+    border: 2px solid var(--color-dark-green);
+    margin-top:25px;
 }
 
 .games div img{
@@ -47,6 +50,7 @@
     display: inline-block;
     transition: transform 0.25s ease, opacity 0.35s ease;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    background-color: var(--color-background);
 }
 
 .game-link:hover {
