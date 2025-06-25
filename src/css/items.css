@@ -16,3 +16,16 @@
     border: 5px solid var(--color-light-green)
 
 }
+
+.item{
+  max-width: 800px;
+  width: min(90%, 800px);
+  margin: clamp(1rem, 5vw, 2rem) auto;
+  background-color: var(--color-background);
+  padding: clamp(1rem, 5vw, 1.5rem);
+  border: 2px solid var(--color-dark-green);
+  border-radius: 10px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  
+}

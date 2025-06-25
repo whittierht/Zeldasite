@@ -23,12 +23,14 @@ async function init() {
     }
 
     content.innerHTML = `
-        <h1 class = "item-name">${item.name}</h1>
-        <img class = "item-image" src="${item.image}" alt="${item.name}">
-        <p class = "item-category"><strong>Category:</strong> ${item.category}</p>
-        <p class = "item-description"><strong>Description:</strong> ${item.description || "No description available."}</p>
-        <p class = "item-locations"><strong>Common Locations:</strong> ${item.common_locations && item.common_locations.length > 0 ? item.common_locations.join(", ") : "None."}</p>
-        <p class = "item-drops"><strong>Drops:</strong> ${item.drops && item.drops.length > 0 ? item.drops.join(", ") : "None."}</p>
+        <div class = "item">
+            <h1 class = "item-name">${item.name}</h1>
+            <img class = "item-image" src="${item.image}" alt="${item.name}">
+            <p class = "item-category"><strong>Category:</strong> ${item.category}</p>
+            <p class = "item-description"><strong>Description:</strong> ${item.description || "No description available."}</p>
+            <p class = "item-locations"><strong>Common Locations:</strong> ${item.common_locations && item.common_locations.length > 0 ? item.common_locations.join(", ") : "None."}</p>
+            <p class = "item-drops"><strong>Drops:</strong> ${item.drops && item.drops.length > 0 ? item.drops.join(", ") : "None."}</p>
+        </div>
     `;
 
     }

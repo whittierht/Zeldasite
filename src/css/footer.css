@@ -1,6 +1,6 @@
 .myfooter {
     background-color: rgb(18, 36, 28);
-    color: var(--color-light-gold);
+    color: white;
     padding: 2rem 1rem;
     text-align: center;
 }
@@ -21,7 +21,7 @@
 }
 
 .footer-links a {
-  color: var(--color-light-gold);
+  color: white;
   text-decoration: none;
   font-size: 0.8rem;
   transition: color 0.3s ease;
