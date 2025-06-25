@@ -58,6 +58,10 @@
   .games {
     flex-direction: column;
   }
+
+  .games h2 {
+      font-size: small;
+  }
 }
 
 .about h1{ 
