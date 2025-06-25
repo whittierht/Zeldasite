@@ -26,7 +26,7 @@
 }
 
 .main-nav a:hover {
-  color: var(--color-background);
+  color: var(--color-gold);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
@@ -35,6 +35,12 @@
   font-size: 2rem;
   cursor: pointer;
   color: var(--color-gold);
+  user-select: none;
+  transition: all .1s ease;
+}
+
+.hamburger:hover {
+  color: var(--color-light-gold)
 }
 
 @media (max-width: 750px) {

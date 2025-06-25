@@ -12,9 +12,15 @@ export async function loadPartial(selector, url) {
 export function hamburger() {
     const hamburgerBtn = document.querySelector(".hamburger");
     const navList = document.querySelector(".main-nav ul");
-
     hamburgerBtn.addEventListener("click", () => {
       navList.classList.toggle("show");
+      if (navList.classList.contains("show")) {
+        hamburgerBtn.innerHTML = "&#9783;"
+      
+      } else {
+          hamburgerBtn.innerHTML = "&#9776;"
+        console.log("Menu closed");
+      }
     });
 
 }
