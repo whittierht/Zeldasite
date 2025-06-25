@@ -1,6 +1,6 @@
 .compendium-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1rem;
     padding: 1rem;
     justify-content: center; 
@@ -25,7 +25,7 @@
 }
 
 .compendium-card h2 {
-    font-size: large;
+    font-size: small;
 }
 
 .compendium-card img {
@@ -38,4 +38,33 @@
 
 .full-main {
     padding: 1rem;
+}
+
+.compendium-header {
+    font-size: larger;
+}
+
+.compendium-head {
+    display: flex;
+    justify-content: space-between;
+    padding-left:1rem;
+    padding-right:1rem;
+    flex-direction: row;
+}
+
+.compendium-head input[type=text] {
+  padding: 6px;
+  border: none;
+  font-size: 17px;
+}
+
+@media (max-width: 900px) {
+    .compendium-head {
+        flex-direction: column;
+        padding-left:0rem;
+        padding-right:0rem;
+        align-items: center;
+        text-align: center;
+        gap:10px;
+    }
 }
