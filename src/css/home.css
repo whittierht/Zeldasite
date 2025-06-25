@@ -6,6 +6,8 @@
     padding-top: 20px;
     text-align: center;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    
+
 }
 
 .mainheader1 {
@@ -17,6 +19,7 @@
     border-radius: 8px; 
     border: 2px solid var(--color-dark-green);
     margin-top:25px;
+    
 }
 
 .games div img{

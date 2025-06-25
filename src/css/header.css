@@ -1,6 +1,7 @@
 header {
-  background-color: var(--color-dark-green);
+  background-color: rgb(18, 36, 28);
   padding: 1rem 2rem;
+  
 }
 
 
@@ -15,7 +16,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;;
+  border-radius: 10px;
 }
 
 .header-div h1 {

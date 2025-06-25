@@ -1,5 +1,5 @@
 .myfooter {
-    background-color: var(--color-dark-green);
+    background-color: rgb(18, 36, 28);
     color: var(--color-light-gold);
     padding: 2rem 1rem;
     text-align: center;
