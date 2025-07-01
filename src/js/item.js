@@ -140,3 +140,6 @@ async function fetchCoordinates() {
 }
 
 init();
+
+
+//add attack and defence!!!!
