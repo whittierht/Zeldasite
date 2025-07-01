@@ -9,7 +9,7 @@
   "Crenel Peak": { "map": "botw", "top": "50%", "left": "50%" },
   "Death Mountain": { "map": "both", "top": "50%", "left": "50%" },
   "Death Mountain Depths": { "map": "totk", "top": "50%", "left": "50%", "layer": "ground" },
-  "Deep Akkala": { "map": "both", "top": "50%", "left": "50%" },
+  "Deep Akkala": { "map": "both", "top": "19%", "left": "79%", "layer":"ground" },
   "Deep Akkala Depths": { "map": "totk", "top": "50%", "left": "50%", "layer": "ground" },
   "Divine Beast Vah Medoh": { "map": "botw", "top": "50%", "left": "50%" },
   "Divine Beast Vah Naboris": { "map": "botw", "top": "50%", "left": "50%" },

@@ -95,7 +95,6 @@ function showItemLocations(locations) {
             return;
         }
 
-        // BOTW marker
         if (coords.map === "botw" || coords.map === "both") {
             const botwMarker = document.createElement("div");
             botwMarker.classList.add("marker", "red");
@@ -105,7 +104,6 @@ function showItemLocations(locations) {
             botwUsed = true;
         }
 
-        // TOTK marker
         if (coords.map === "totk" || coords.map === "both") {
             const totkMarker = document.createElement("div");
             totkMarker.classList.add("marker");
