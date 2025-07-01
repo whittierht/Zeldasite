@@ -23,7 +23,6 @@ async function init() {
 
     const allItems = await getAllCompendium(game);
     const item = allItems.find(i => i.id == itemId);
-   
 
     if (!item) {
         content.innerHTML = "<p>Item not found. Try again!</p>";
@@ -33,32 +32,25 @@ async function init() {
     content.innerHTML = `
         <div class="item">
             <h1 class="item-name">${item.name}</h1>
-            <p class="item-category"><i>${item.category}</i> </p>
+            <p class="item-category"><i>${item.category}</i></p>
             <p class="item-description">${item.description || "No description available."}</p>
             <img class="item-image" src="${item.image}" alt="${item.name}">
-            
-           
         </div>
     `;
 
     const locations = document.querySelector(".item-locations");
     locations.innerHTML = `<strong>Common Locations:</strong> ${item.common_locations?.length ? item.common_locations.join(", ") : "No Common Locations"}`;
 
-
-
-
     setupMapControls(item.common_locations);
     showItemLocations(item.common_locations);
 
-
     const drops = document.querySelector(".drops");
     drops.innerHTML = `
-    <h2 class="item-drops"><strong>Drops</strong></h2>
+        <h2 class="item-drops"><strong>Drops</strong></h2>
         <div class="drops-list">
-        ${item.drops?.length ? `<ul>${item.drops.map(drop => `<li>${drop}</li>`).join("")}</ul>` : "No drops"}
-  </div>
+            ${item.drops?.length ? `<ul>${item.drops.map(drop => `<li>${drop}</li>`).join("")}</ul>` : "No drops"}
+        </div>
     `;
-
 }
 
 function setupMapControls(locations) {
@@ -81,14 +73,14 @@ function switchTotkLayer(direction, locations) {
 }
 
 function showItemLocations(locations) {
-    const botwMap = document.querySelector(".botw-map");
+    const botwMapInner = document.querySelector(".botw-map .map-inner");
     const totkMap = document.querySelector(".totk-map");
     const totkMapInner = document.querySelector(".totk-map .map-inner");
 
-    botwMap.classList.remove("active");
+    botwMapInner.parentElement.classList.remove("active");
     totkMap.classList.remove("active");
 
-    botwMap.querySelectorAll(".marker").forEach(m => m.remove());
+    botwMapInner.querySelectorAll(".marker").forEach(m => m.remove());
     totkMapInner.querySelectorAll(".marker").forEach(m => m.remove());
 
     if (!locations?.length) return;
@@ -109,7 +101,7 @@ function showItemLocations(locations) {
             botwMarker.classList.add("marker", "red");
             botwMarker.style.top = coords.top;
             botwMarker.style.left = coords.left;
-            botwMap.appendChild(botwMarker);
+            botwMapInner.appendChild(botwMarker);
             botwUsed = true;
         }
 
@@ -118,15 +110,15 @@ function showItemLocations(locations) {
             const totkMarker = document.createElement("div");
             totkMarker.classList.add("marker");
 
-            if (coords.layer === "ground") {
-                totkMarker.classList.add("red");
-            } else if (coords.layer === "sky") {
-                totkMarker.classList.add("blue");
-            } else if (coords.layer === "depths") {
-                totkMarker.classList.add("purple");
-            } else {
-                console.warn(`Invalid or missing layer for ${loc}`, coords);
-            }
+        if (coords.layer === "ground") {
+            totkMarker.classList.add("red");
+        } else if (coords.layer === "sky") {
+            totkMarker.classList.add("blue");
+        } else if (coords.layer === "depths") {
+            totkMarker.classList.add("purple");
+        } else {
+            console.warn(`Invalid or missing layer for ${loc}`, coords);
+        }
 
             totkMarker.style.top = coords.top;
             totkMarker.style.left = coords.left;
@@ -135,7 +127,7 @@ function showItemLocations(locations) {
         }
     });
 
-    if (botwUsed) botwMap.classList.add("active");
+    if (botwUsed) botwMapInner.parentElement.classList.add("active");
     if (totkUsed) totkMap.classList.add("active");
 }
 

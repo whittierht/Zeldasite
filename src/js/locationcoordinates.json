@@ -41,7 +41,7 @@
   "Gerudo Desert Depths": { "map": "totk", "top": "91%", "left": "18%", "layer": "depths" },
   "_comment4": "done",
   "Gerudo Desert Sky": { "map": "totk", "top": "91%", "left": "18%", "layer": "sky" },
-  "Gerudo Highlands": { "map": "both", "top": "50%", "left": "50%" },
+  "Gerudo Highlands": { "map": "both", "top": "0%", "left": "50%" },
   "Gerudo Highlands Depths": { "map": "totk", "top": "50%", "left": "50%", "layer": "ground" },
   "Gerudo Town": { "map": "both", "top": "50%", "left": "50%" },
   "Goron City": { "map": "totk", "top": "50%", "left": "50%", "layer": "ground" },
