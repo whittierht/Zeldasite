@@ -45,12 +45,39 @@ async function init() {
     showItemLocations(item.common_locations);
 
     const drops = document.querySelector(".drops");
-    drops.innerHTML = `
-        <h2 class="item-drops"><strong>Drops</strong></h2>
-        <div class="drops-list">
-            ${item.drops?.length ? `<ul>${item.drops.map(drop => `<li>${drop}</li>`).join("")}</ul>` : "No drops"}
-        </div>
-    `;
+    let statsHTML = "";
+
+    if (item.hearts_recovered) {
+        statsHTML += `<p><strong>Hearts Recovered:</strong> ${item.hearts_recovered}</p>`;
+    }
+
+    if (item.cooking_effect) {
+        statsHTML += `<p><strong>Cooking Effect:</strong> ${item.cooking_effect}</p>`;
+    }
+
+    if (item.properties) {
+        if (item.properties.attack) {
+            statsHTML += `<p><strong>Attack:</strong> ${item.properties.attack}</p>`;
+        }
+        if (item.properties.defense) {
+            statsHTML += `<p><strong>Defense:</strong> ${item.properties.defense}</p>`;
+        }
+    }
+
+    const hasDrops = item.drops?.length;
+    const hasStats = statsHTML.length;
+
+    if (hasDrops || hasStats) {
+        drops.innerHTML = `
+            <h2 class="item-drops"><strong>Stats</strong></h2>
+            <div class="drops-list">
+                ${hasDrops ? `<strong>Drops:</strong><ul>${item.drops.map(drop => `<li>${drop}</li>`).join("")}</ul>` : ""}
+                ${hasStats ? `<div class="stats">${statsHTML}</div>` : ""}
+            </div>
+        `;
+    } else {
+        drops.style.display = "none"; // Hide the whole section
+    }
 }
 
 function setupMapControls(locations) {
@@ -63,11 +90,24 @@ function setupMapControls(locations) {
 
 function switchTotkLayer(direction, locations) {
     const mapImage = document.querySelector(".totk-map .map-image");
+    const mapHeader = document.querySelector(".totkMAP");
 
     currentTotkLayerIndex = (currentTotkLayerIndex + direction + totkLayers.length) % totkLayers.length;
     const currentLayer = totkLayers[currentTotkLayerIndex];
 
     mapImage.src = `/images/totk-${currentLayer}-map.jpg`;
+
+    if (currentLayer === "ground") {
+        mapHeader.textContent = "TOTK Ground Map";
+    } else if (currentLayer === "sky") {
+        mapHeader.textContent = "TOTK Sky Map";
+    } else if (currentLayer === "depths") {
+        mapHeader.textContent = "TOTK Depths Map";
+    } else {
+        console.warn(`No Map`);
+    }
+
+
 
     showItemLocations(locations);
 }
@@ -141,5 +181,3 @@ async function fetchCoordinates() {
 
 init();
 
-
-//add attack and defence!!!!

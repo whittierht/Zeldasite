@@ -3,6 +3,7 @@
 .map-key,
 .drops {
     background-color: var(--color-background);
+    background-image: url("/images/textblockbackground.png");
     border: 2px solid var(--color-dark-green);
     border-radius: 10px;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);

@@ -81,6 +81,7 @@
   max-width: 800px;
   width: min(90%, 800px);
   margin: clamp(1rem, 5vw, 2rem) auto;
+  background-image: url("/images/textblockbackground.png");
   background-color: var(--color-background);
   padding: clamp(1rem, 5vw, 1.5rem);
   border: 2px solid var(--color-dark-green);

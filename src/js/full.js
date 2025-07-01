@@ -14,6 +14,7 @@ async function init() {
 
         listContainer.innerHTML = items.map(item => `
         <a href="/compendiums/item.html?id=${item.id}" class="compendium-card">
+            <button class="favorite-btn" title="Favorite"></button>
             <img src="${item.image}" alt="${item.name}" />
             <h2>${item.name}</h2>
         </a>
