@@ -19,6 +19,13 @@ async function init() {
         </a>
         `).join("");
 
+        fetch("https://botw-compendium.herokuapp.com/api/v3/compendium/all")
+            .then(res => res.json())
+            .then(data => {
+                const all = new Set();
+                data.data.forEach(item => item.common_locations?.forEach(loc => all.add(loc)));
+                console.log(JSON.stringify(Array.from(all).sort(), null, 2));
+        });
         
     }
 

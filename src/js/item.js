@@ -1,39 +1,152 @@
 import { loadPartial, hamburger, getParam } from "./utils.js";
 import { getAllCompendium } from "./api.js";
 
+let locationCoordinates = {};
+let currentTotkLayerIndex = 0;
+const totkLayers = ["ground", "sky", "depths"];
+
 async function init() {
     await loadPartial(".myheader", "/partials/header.html");
     await loadPartial(".myfooter", "/partials/footer.html");
 
+    locationCoordinates = await fetchCoordinates();
     hamburger();
 
     const itemId = getParam("id");
-    const content = document.querySelector(".item-content")
+    const game = getParam("game") || "botw";
+    const content = document.querySelector(".item-content");
 
     if (!itemId) {
-        content.innterHTML = "<p>Item not fount. Try again!</p>"
+        content.innerHTML = "<p>Item not found. Try again!</p>";
         return;
     }
 
-    const allItems = await getAllCompendium();
+    const allItems = await getAllCompendium(game);
     const item = allItems.find(i => i.id == itemId);
+   
 
     if (!item) {
-        content.innerHTML = "<p>Item not fount. Try again!</p>"
+        content.innerHTML = "<p>Item not found. Try again!</p>";
+        return;
     }
 
     content.innerHTML = `
-        <div class = "item">
-            <h1 class = "item-name">${item.name}</h1>
-            <img class = "item-image" src="${item.image}" alt="${item.name}">
-            <p class = "item-category"><strong>Category:</strong> ${item.category}</p>
-            <p class = "item-description"><strong>Description:</strong> ${item.description || "No description available."}</p>
-            <p class = "item-locations"><strong>Common Locations:</strong> ${item.common_locations && item.common_locations.length > 0 ? item.common_locations.join(", ") : "None."}</p>
-            <p class = "item-drops"><strong>Drops:</strong> ${item.drops && item.drops.length > 0 ? item.drops.join(", ") : "None."}</p>
+        <div class="item">
+            <h1 class="item-name">${item.name}</h1>
+            <p class="item-category"><i>${item.category}</i> </p>
+            <p class="item-description">${item.description || "No description available."}</p>
+            <img class="item-image" src="${item.image}" alt="${item.name}">
+            
+           
         </div>
     `;
 
+    const locations = document.querySelector(".item-locations");
+    locations.innerHTML = `<strong>Common Locations:</strong> ${item.common_locations?.length ? item.common_locations.join(", ") : "No Common Locations"}`;
+
+
+
+
+    setupMapControls(item.common_locations);
+    showItemLocations(item.common_locations);
+
+
+    const drops = document.querySelector(".drops");
+    drops.innerHTML = `
+    <h2 class="item-drops"><strong>Drops</strong></h2>
+        <div class="drops-list">
+        ${item.drops?.length ? `<ul>${item.drops.map(drop => `<li>${drop}</li>`).join("")}</ul>` : "No drops"}
+  </div>
+    `;
+
+}
+
+function setupMapControls(locations) {
+    const prevBtn = document.getElementById("prev-map");
+    const nextBtn = document.getElementById("next-map");
+
+    prevBtn.addEventListener("click", () => switchTotkLayer(-1, locations));
+    nextBtn.addEventListener("click", () => switchTotkLayer(1, locations));
+}
+
+function switchTotkLayer(direction, locations) {
+    const mapImage = document.querySelector(".totk-map .map-image");
+
+    currentTotkLayerIndex = (currentTotkLayerIndex + direction + totkLayers.length) % totkLayers.length;
+    const currentLayer = totkLayers[currentTotkLayerIndex];
+
+    mapImage.src = `/images/totk-${currentLayer}-map.jpg`;
+
+    showItemLocations(locations);
+}
+
+function showItemLocations(locations) {
+    const botwMap = document.querySelector(".botw-map");
+    const totkMap = document.querySelector(".totk-map");
+    const totkMapInner = document.querySelector(".totk-map .map-inner");
+
+    botwMap.classList.remove("active");
+    totkMap.classList.remove("active");
+
+    botwMap.querySelectorAll(".marker").forEach(m => m.remove());
+    totkMapInner.querySelectorAll(".marker").forEach(m => m.remove());
+
+    if (!locations?.length) return;
+
+    let botwUsed = false;
+    let totkUsed = false;
+
+    locations.forEach(loc => {
+        const coords = locationCoordinates[loc];
+        if (!coords) {
+            console.warn(`Missing coordinates for location: ${loc}`);
+            return;
+        }
+
+        // BOTW marker
+        if (coords.map === "botw" || coords.map === "both") {
+            const botwMarker = document.createElement("div");
+            botwMarker.classList.add("marker", "red");
+            botwMarker.style.top = coords.top;
+            botwMarker.style.left = coords.left;
+            botwMap.appendChild(botwMarker);
+            botwUsed = true;
+        }
+
+        // TOTK marker
+        if (coords.map === "totk" || coords.map === "both") {
+            const totkMarker = document.createElement("div");
+            totkMarker.classList.add("marker");
+
+            if (coords.layer === "ground") {
+                totkMarker.classList.add("red");
+            } else if (coords.layer === "sky") {
+                totkMarker.classList.add("blue");
+            } else if (coords.layer === "depths") {
+                totkMarker.classList.add("purple");
+            } else {
+                console.warn(`Invalid or missing layer for ${loc}`, coords);
+            }
+
+            totkMarker.style.top = coords.top;
+            totkMarker.style.left = coords.left;
+            totkMapInner.appendChild(totkMarker);
+            totkUsed = true;
+        }
+    });
+
+    if (botwUsed) botwMap.classList.add("active");
+    if (totkUsed) totkMap.classList.add("active");
+}
+
+async function fetchCoordinates() {
+    try {
+        const res = await fetch("/js/locationCoordinates.json");
+        return await res.json();
+    } catch (err) {
+        console.error("Failed to load location coordinates:", err);
+        return {};
     }
+}
 
 init();
-
