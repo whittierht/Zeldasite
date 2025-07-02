@@ -79,6 +79,7 @@
     overflow: visible; 
     padding: 0.5rem;
     box-sizing: border-box;
+    
 }
 
 .map-wrapper.active {
@@ -91,12 +92,15 @@
     display: block;
     border-radius: 5px;
     max-width: 100%;
+    object-fit: contain;
 }
 
 .map-inner {
     position: relative;
     width: 100%;
     height: auto;
+    
+    
 }
 
 .marker {
