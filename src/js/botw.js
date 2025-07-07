@@ -1,34 +1,30 @@
 import { getAllBOTW } from "./api.js";
-import { loadPartial, hamburger } from "./utils.js";
+import { loadPartial, hamburger, setupFilterToggle } from "./utils.js";
+import { setupFilters } from "./filters.js";
 
 async function init() {
     await loadPartial(".myheader", "/partials/header.html");
     await loadPartial(".myfooter", "/partials/footer.html");
+    await loadPartial(".filters-section", "/partials/filters.html");
 
     hamburger();
 
-        const listContainer = document.querySelector(".compendium-list");
-        const items = await getAllBOTW();
+    const items = await getAllBOTW();
+    items.sort((a, b) => a.name.localeCompare(b.name));
 
-        items.sort((a, b) => a.name.localeCompare(b.name));
+    renderList(items);
+    setupFilterToggle();
+    setupFilters(items, renderList);
+}
 
-        listContainer.innerHTML = items.map(item => `
+function renderList(items) {
+    const listContainer = document.querySelector(".compendium-list");
+    listContainer.innerHTML = items.map(item => `
         <a href="/compendiums/item.html?id=${item.id}" class="compendium-card">
-            <button class="favorite-btn" title="Favorite"></button>
             <img src="${item.image}" alt="${item.name}" />
             <h2>${item.name}</h2>
         </a>
-        `).join("");
-
-        fetch("https://botw-compendium.herokuapp.com/api/v3/compendium/all")
-            .then(res => res.json())
-            .then(data => {
-                const all = new Set();
-                data.data.forEach(item => item.common_locations?.forEach(loc => all.add(loc)));
-                console.log(JSON.stringify(Array.from(all).sort(), null, 2));
-        });
-        
-    }
+    `).join("");
+}
 
 init();
-

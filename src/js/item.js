@@ -37,9 +37,16 @@ async function init() {
             <img class="item-image" src="${item.image}" alt="${item.name}">
         </div>
     `;
-
+    const mapKey = document.querySelector(".map-key");
     const locations = document.querySelector(".item-locations");
     locations.innerHTML = `<strong>Common Locations:</strong> ${item.common_locations?.length ? item.common_locations.join(", ") : "No Common Locations"}`;
+
+
+    if (!item.common_locations?.length) {
+        mapKey.style.display = "none";
+    } else {
+        mapKey.style.display = "inline-block;"; 
+    }
 
     setupMapControls(item.common_locations);
     showItemLocations(item.common_locations);
@@ -76,7 +83,7 @@ async function init() {
             </div>
         `;
     } else {
-        drops.style.display = "none"; // Hide the whole section
+        drops.style.display = "none"; 
     }
 }
 
@@ -95,22 +102,30 @@ function switchTotkLayer(direction, locations) {
     currentTotkLayerIndex = (currentTotkLayerIndex + direction + totkLayers.length) % totkLayers.length;
     const currentLayer = totkLayers[currentTotkLayerIndex];
 
-    mapImage.src = `/images/totk-${currentLayer}-map.jpg`;
+    mapImage.classList.add("fade-out");
 
-    if (currentLayer === "ground") {
-        mapHeader.textContent = "TOTK Ground Map";
-    } else if (currentLayer === "sky") {
-        mapHeader.textContent = "TOTK Sky Map";
-    } else if (currentLayer === "depths") {
-        mapHeader.textContent = "TOTK Depths Map";
-    } else {
-        console.warn(`No Map`);
-    }
+    setTimeout(() => {
+        mapImage.src = `/images/totk-${currentLayer}-map.jpg`;
 
+        mapImage.onload = () => {
+            mapImage.classList.remove("fade-out");
+        };
 
+        if (currentLayer === "ground") {
+            mapHeader.textContent = "TOTK Ground Map";
+        } else if (currentLayer === "sky") {
+            mapHeader.textContent = "TOTK Sky Map";
+        } else if (currentLayer === "depths") {
+            mapHeader.textContent = "TOTK Depths Map";
+        } else {
+            console.warn(`No Map`);
+        }
 
-    showItemLocations(locations);
+        showItemLocations(locations);
+    }, 300); 
 }
+
+
 
 function showItemLocations(locations) {
     const botwMapInner = document.querySelector(".botw-map .map-inner");
