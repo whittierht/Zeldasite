@@ -57,7 +57,7 @@ export function setupFilters(allItems, renderCallback) {
     creaturesBtn?.addEventListener("click", () => {
         const filtered = allItems.filter(item => item.category?.toLowerCase() === "creatures");
         renderCallback(filtered);
-        header.textContent = `${baseTitle} - Creaturs`;clearActive();
+        header.textContent = `${baseTitle} - Creatures`;clearActive();
         creaturesBtn.classList.add("active");
     });
 }

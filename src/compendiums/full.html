@@ -14,7 +14,10 @@
     <main class="full-main">
         <div class = "compendium-head">
           <h1 class="compendium-header">Full Compendium</h1>
-          <input class = "search" type="text" placeholder="Search..">
+            <form action="/search" method="GET">
+              <input class="search" type="text" name="query" placeholder="Search..">
+              <button class="searching" type="submit">&#128269;</button>
+            </form>
         </div> 
         <div class = "filters-section">
         </div>

@@ -77,3 +77,12 @@
         gap:10px;
     }
 }
+
+.searching {
+    background: none;
+    border: none;
+}
+
+.searching:hover {
+    background: none;
+}
