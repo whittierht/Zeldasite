@@ -29,14 +29,35 @@ async function init() {
         return;
     }
 
+    const isFavorite = localStorage.getItem("favorites")?.includes(item.name);
+
     content.innerHTML = `
         <div class="item">
             <h1 class="item-name">${item.name}</h1>
+            <button class="favorite-btn" title="Add to Favorites">
+                <span class="heart ${isFavorite ? "filled" : ""}">&#10084;</span>
+            </button>
             <p class="item-category"><i>${item.category}</i></p>
             <p class="item-description">${item.description || "No description available."}</p>
             <img class="item-image" src="${item.image}" alt="${item.name}">
         </div>
     `;
+
+        document.querySelector(".favorite-btn").addEventListener("click", () => {
+        const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+        const index = favorites.indexOf(item.name);
+
+        if (index === -1) {
+            favorites.push(item.name);
+        } else {
+            favorites.splice(index, 1);
+        }
+
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+        document.querySelector(".heart").classList.toggle("filled");
+        });
+
+
     const mapKey = document.querySelector(".map-key");
     const locations = document.querySelector(".item-locations");
     locations.innerHTML = `<strong>Common Locations:</strong> ${item.common_locations?.length ? item.common_locations.join(", ") : "No Common Locations"}`;
