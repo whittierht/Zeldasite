@@ -29,33 +29,39 @@ async function init() {
         return;
     }
 
-    const isFavorite = localStorage.getItem("favorites")?.includes(item.name);
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    const isFavorite = favorites.includes(item.name);
+
+    console.log("Favorites list:", favorites);
+    console.log("Is current item favorited?", isFavorite);
 
     content.innerHTML = `
-        <div class="item">
-            <h1 class="item-name">${item.name}</h1>
-            <button class="favorite-btn" title="Add to Favorites">
-                <span class="heart ${isFavorite ? "filled" : ""}">&#10084;</span>
-            </button>
-            <p class="item-category"><i>${item.category}</i></p>
-            <p class="item-description">${item.description || "No description available."}</p>
-            <img class="item-image" src="${item.image}" alt="${item.name}">
-        </div>
+    <div class="item">
+        <h1 class="item-name">${item.name}</h1>
+        <button class="favorite-btn" title="${isFavorite ? "Remove from Favorites" : "Add to Favorites"}">
+        <span class="heart ${isFavorite ? "filled" : ""}">&#10084;</span>
+        </button>
+        <p class="item-category"><i>${item.category}</i></p>
+        <p class="item-description">${item.description || "No description available."}</p>
+        <img class="item-image" src="${item.image}" alt="${item.name}">
+    </div>
     `;
 
-        document.querySelector(".favorite-btn").addEventListener("click", () => {
-        const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-        const index = favorites.indexOf(item.name);
+    document.querySelector(".favorite-btn").addEventListener("click", (e) => {
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    const index = favorites.indexOf(item.name);
+    const heart = e.currentTarget.querySelector(".heart");
 
-        if (index === -1) {
-            favorites.push(item.name);
-        } else {
-            favorites.splice(index, 1);
-        }
+    if (index === -1) {
+        favorites.push(item.name);
+        heart.classList.add("filled");
+    } else {
+        favorites.splice(index, 1);
+        heart.classList.remove("filled");
+    }
 
-        localStorage.setItem("favorites", JSON.stringify(favorites));
-        document.querySelector(".heart").classList.toggle("filled");
-        });
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    });
 
 
     const mapKey = document.querySelector(".map-key");

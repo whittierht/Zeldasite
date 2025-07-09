@@ -251,3 +251,32 @@
     flex-direction: column;
     gap:10px;
 }
+
+.favorite-btn{
+    background: none;
+    Border:none;
+    transition: all .3s ease;
+    position: fixed;
+    z-index: 9999;
+    bottom: 0;
+    right:10px;
+    opacity: .8;
+
+}
+
+.favorite-btn:hover{
+    background: none;
+    Border:none;
+    opacity: 1;
+}
+
+.heart {
+  color: white;
+  transition: color 0.3s ease;
+  font-size: 4rem;
+  pointer-events: none;  
+}
+
+.heart.filled {
+  color: red;
+}

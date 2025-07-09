@@ -97,3 +97,14 @@
 .about a {
   color: rgb(91, 255, 233);
 }
+
+.home-header {
+    margin: 0 -1rem;
+    width: calc(100% + 2rem);
+    padding: 1rem 2rem;
+    background-color: rgb(18, 36, 28);
+    text-align: center;
+    box-sizing: border-box;
+    border-bottom: 5px solid var(--color-gold);
+    color: var(--color-light-gold);
+}

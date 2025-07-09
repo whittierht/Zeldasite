@@ -11,26 +11,38 @@ async function init() {
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
     if (!favorites.length) {
-        favoritesSection.innerHTML = "<p>No favorites yet.</p>";
+        favoritesSection.innerHTML = `<p class="empty">No favorites yet...</p>`;
         return;
     }
 
-    // Load both games' data
     const botwItems = await getAllCompendium("botw");
     const totkItems = await getAllCompendium("totk");
-    const allItems = [...botwItems, ...totkItems];
 
-    const matchedFavorites = allItems.filter(item => favorites.includes(item.name));
+    const allItemsMap = new Map();
+
+    for (const item of botwItems) {
+    if (favorites.includes(item.name)) {
+        allItemsMap.set(item.name, item);
+    }
+    }
+
+    for (const item of totkItems) {
+    if (favorites.includes(item.name) && !allItemsMap.has(item.name)) {
+        allItemsMap.set(item.name, item);
+    }
+    }
+
+    const matchedFavorites = Array.from(allItemsMap.values());
 
     if (!matchedFavorites.length) {
-        favoritesSection.innerHTML = "<p>None of your favorites were found in the compendium.</p>";
+        favoritesSection.innerHTML = `<p class="empty">No favorites yet...</p>`;
         return;
     }
 
     favoritesSection.innerHTML = matchedFavorites.map(item => `
         <div class="favorite-item">
+            <img src="${item.image}" alt="${item.name}">
             <h3>${item.name}</h3>
-            <img src="${item.image}" alt="${item.name}" width="120">
             <button class="remove-btn" data-name="${item.name}">Remove</button>
         </div>
     `).join("");

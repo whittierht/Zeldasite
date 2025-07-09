@@ -1,0 +1,73 @@
+.favorites-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    justify-content: center; 
+}
+
+.favorite-item {
+    position: relative;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    text-transform: capitalize;
+    transition: transform 0.25s ease, opacity 0.35s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.favorite-item:hover {
+    transform: scale(1.05);
+}
+
+.favorite-item h3 {
+    font-size: small;
+    color: white !important;
+}
+
+.favorite-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+    border-radius: 10px;
+}
+
+.favorites-header {
+    margin: 0 -1rem;
+    width: calc(100% + 2rem);
+    padding: 1rem 2rem;
+    background-color: rgb(18, 36, 28);
+    text-align: center;
+    box-sizing: border-box;
+    border-bottom: 5px solid var(--color-gold);
+    color: var(--color-light-gold);
+}
+
+.remove-btn {
+    background-color: var(--color-dark-green);
+    border:none;
+    margin: 10px;
+}
+
+.remove-btn:hover {
+    background-color: var(--color-light-green);
+
+}
+
+.favorites-main {
+    min-height: 200px;
+}
+
+.empty {
+    color:white;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    text-align: center;
+    padding: 3px;
+}
