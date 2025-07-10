@@ -30,7 +30,8 @@ async function init() {
     }
 
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    const isFavorite = favorites.includes(item.name);
+    const isFavorite = favorites.some(fav => Number(fav.id) === Number(item.id) && fav.game === game);
+
 
     console.log("Favorites list:", favorites);
     console.log("Is current item favorited?", isFavorite);
@@ -48,19 +49,21 @@ async function init() {
     `;
 
     document.querySelector(".favorite-btn").addEventListener("click", (e) => {
-    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    const index = favorites.indexOf(item.name);
-    const heart = e.currentTarget.querySelector(".heart");
+        const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+        const index = favorites.findIndex(fav =>
+            Number(fav.id) === Number(item.id) && fav.game === game
+        );
+        const heart = e.currentTarget.querySelector(".heart");
 
-    if (index === -1) {
-        favorites.push(item.name);
-        heart.classList.add("filled");
-    } else {
-        favorites.splice(index, 1);
-        heart.classList.remove("filled");
-    }
+        if (index === -1) {
+            favorites.push({ id: item.id, name: item.name, game });
+            heart.classList.add("filled");
+        } else {
+            favorites.splice(index, 1);
+            heart.classList.remove("filled");
+        }
 
-    localStorage.setItem("favorites", JSON.stringify(favorites));
+        localStorage.setItem("favorites", JSON.stringify(favorites));
     });
 
 
