@@ -1,5 +1,6 @@
 import { loadPartial, hamburger, getParam } from "./utils.js";
 import { getAllCompendium } from "./api.js";
+import { getAllBOTW, getAllTOTK } from "./api.js";
 
 let locationCoordinates = {};
 let currentTotkLayerIndex = 0;
@@ -21,8 +22,13 @@ async function init() {
         return;
     }
 
-    const allItems = await getAllCompendium(game);
-    const item = allItems.find(i => i.id == itemId);
+    let allItems = [];
+    if (game === "botw") {
+        allItems = await getAllBOTW();
+    } else if (game === "totk") {
+        allItems = await getAllTOTK();
+    }
+    const item = allItems.find(i => Number(i.id) === Number(itemId));
 
     if (!item) {
         content.innerHTML = "<p>Item not found. Try again!</p>";
@@ -44,9 +50,30 @@ async function init() {
         </button>
         <p class="item-category"><i>${item.category}</i></p>
         <p class="item-description">${item.description || "No description available."}</p>
+        <div class="image-wrapper">
+        <div class="spinner"></div>
         <img class="item-image" src="${item.image}" alt="${item.name}">
+        </div>
+
+
     </div>
     `;
+
+    const img = document.querySelector(".item-image");
+    const spinner = document.querySelector(".spinner");
+
+    img.addEventListener("load", () => {
+        img.classList.add("loaded");
+        spinner.classList.add("hidden");
+    });
+
+    img.addEventListener("error", () => {
+        img.src = "/images/placeholder.png";
+        img.classList.add("loaded");
+        spinner.classList.add("hidden");
+    });
+
+
 
     document.querySelector(".favorite-btn").addEventListener("click", (e) => {
         const favorites = JSON.parse(localStorage.getItem("favorites")) || [];

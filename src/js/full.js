@@ -22,14 +22,14 @@ async function init() {
 }
 
 function renderList(items) {
-    const listContainer = document.querySelector(".compendium-list");
+  const listContainer = document.querySelector(".compendium-list");
 
-    listContainer.innerHTML = items.map(item => `
-        <a href="/compendiums/item.html?id=${item.id}" class="compendium-card">
-            <img src="${item.image}" alt="${item.name}" />
-            <h2>${item.name}</h2>
-        </a>
-    `).join("");
+  listContainer.innerHTML = items.map(item => `
+    <a href="/compendiums/item.html?id=${item.id}&game=${item.game}" class="compendium-card">
+      <img src="${item.image}" alt="${item.name}" />
+      <h2>${item.name}</h2>
+    </a>
+  `).join("");
 }
 
 
