@@ -1,6 +1,6 @@
 .compendium-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 1rem;
     padding: 1rem;
     justify-content: center; 
@@ -39,6 +39,7 @@
     padding-left: 1rem;
     padding-right: 1rem;
     padding-bottom: 1rem;
+    min-height: 50vh;
 }
 
 .compendium-header {
@@ -67,6 +68,18 @@
 
 
 
+
+
+.searching {
+    background: none;
+    border: none;
+}
+
+.searching:hover {
+    background: none;
+}
+
+
 @media (max-width: 900px) {
     .compendium-head {
         flex-direction: column;
@@ -78,11 +91,10 @@
     }
 }
 
-.searching {
-    background: none;
-    border: none;
-}
 
-.searching:hover {
-    background: none;
+@media (max-width: 700px) {
+
+    .compendium-list {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
 }

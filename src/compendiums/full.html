@@ -14,10 +14,9 @@
     <main class="full-main">
         <div class = "compendium-head">
           <h1 class="compendium-header">Full Compendium</h1>
-            <form action="/search" method="GET">
-              <input class="search" type="text" name="query" placeholder="Search..">
-              <button class="searching" type="submit">&#128269;</button>
-            </form>
+          <form onsubmit="return false;">
+            <input class="search" type="text" placeholder="Search...">
+          </form>
         </div> 
         <div class = "filters-section">
         </div>
@@ -31,4 +30,4 @@
 </body>
 </html>
 
-<!--Search bar needs to work-->
+<!--Search bar needs a form label-->

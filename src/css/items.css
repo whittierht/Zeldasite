@@ -196,27 +196,6 @@
 .marker-key.blue { background: blue; }
 .marker-key.purple { background: purple; }
 
-@media (max-width: 700px) {
-    .map-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .map-wrapper {
-        width: 100%;
-        max-width: 100%;
-        min-width: 200px;
-        overflow: visible;
-        padding: 0;
-    }
-
-    .map-image {
-        width: 100%;
-        height: auto;
-        display: block;
-        max-width: 100%;
-    }
-}
 
 .image-btn {
     color:white;
@@ -273,10 +252,36 @@
 .heart {
   color: white;
   transition: color 0.3s ease;
-  font-size: 4rem;
+  font-size: 7rem;
   pointer-events: none;  
 }
 
 .heart.filled {
   color: red;
+}
+
+@media (max-width: 700px) {
+    .map-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .map-wrapper {
+        width: 100%;
+        max-width: 100%;
+        min-width: 200px;
+        overflow: visible;
+        padding: 0;
+    }
+
+    .map-image {
+        width: 100%;
+        height: auto;
+        display: block;
+        max-width: 100%;
+    }
+
+    .heart {
+        font-size: 4rem;
+    }
 }
