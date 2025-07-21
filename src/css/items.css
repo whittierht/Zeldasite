@@ -104,6 +104,13 @@
   z-index: 2;
 }
 
+.item-games {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: white;
+}
+
+
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
@@ -292,14 +299,48 @@
 }
 
 .heart {
-  color: white;
-  transition: color 0.3s ease;
-  font-size: 7rem;
-  pointer-events: none;  
+    color: white;
+    transition: color 0.3s ease;
+    font-size: 7rem;
+    pointer-events: none;  
 }
 
 .heart.filled {
   color: red;
+}
+
+.item-navigation {
+    position: fixed;
+    bottom: 0;
+    left: 10px;
+    z-index: 9999;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;;
+    gap:10px;
+    }
+
+#prev-item,
+#next-item {
+    opacity: .8;
+    position: relative;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    color: black !important;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-size: .9rem;
+    background-color: white;
+    transition: all .3s ease;
+}
+
+#prev-item:hover,
+#next-item:hover {
+    opacity: 1;
 }
 
 @media (max-width: 700px) {
@@ -325,5 +366,12 @@
 
     .heart {
         font-size: 4rem;
+    }
+
+    #prev-item,
+    #next-item {
+
+        font-size: .5rem;
+
     }
 }

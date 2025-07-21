@@ -52,17 +52,13 @@ a {
 
 
 button {
-  background-color: var(--color-light-green);
   color: #fff;
-  border: 2px solid var(--color-dark-green);
   padding: 0.5rem 1rem;
   font-family: var(--font-pixel);
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: var(--color-dark-green);
-}
+
 
 

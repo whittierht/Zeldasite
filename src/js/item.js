@@ -6,7 +6,29 @@ let locationCoordinates = {};
 let currentTotkLayerIndex = 0;
 const totkLayers = ["ground", "sky", "depths"];
 
+let botwItems = [];
+let totkItems = [];
+
+
+
+
+
+
 async function init() {
+    botwItems = await getAllBOTW();
+    totkItems = await getAllTOTK();
+
+
+    function itemAppearances(itemName) {
+    const fromBOTW = botwItems.some(i => i.name === itemName);
+    const fromTOTK = totkItems.some(i => i.name === itemName);
+
+    if (fromBOTW && fromTOTK) return "BOTW and TOTK";
+    if (fromBOTW) return "BOTW";
+    if (fromTOTK) return "TOTK";
+    return "Unknown";
+}
+
     await loadPartial(".myheader", "/partials/header.html");
     await loadPartial(".myfooter", "/partials/footer.html");
 
@@ -49,6 +71,8 @@ async function init() {
         <span class="heart ${isFavorite ? "filled" : ""}">&#10084;</span>
         </button>
         <p class="item-category"><i>${item.category}</i></p>
+        <p class="item-games"><strong>Game(s):</strong> ${itemAppearances(item.name)}</p>
+
         <p class="item-description">${item.description || "No description available."}</p>
         <div class="image-wrapper">
         <div class="spinner"></div>
@@ -59,19 +83,61 @@ async function init() {
     </div>
     `;
 
+    const allItemsFull = await getAllCompendium();
+    const uniqueByNameMap = new Map();
+    allItemsFull.forEach(i => {
+    if (!uniqueByNameMap.has(i.name)) {
+        uniqueByNameMap.set(i.name, i);
+    }
+    });
+    const uniqueItems = Array.from(uniqueByNameMap.values()).sort((a, b) =>
+    a.name.localeCompare(b.name)
+    );
+
+    const currentIndex = uniqueItems.findIndex(i => i.name === item.name);
+
+    const prevItem = uniqueItems[currentIndex - 1];
+    const nextItem = uniqueItems[currentIndex + 1];
+
+    const prevBtn = document.getElementById("prev-item");
+    const nextBtn = document.getElementById("next-item");
+
+    if (prevItem) {
+        prevBtn.addEventListener("click", () => {
+            window.location.href = `/compendiums/item.html?id=${prevItem.id}&game=${prevItem.game}`;
+    });
+    } else {
+        prevBtn.disabled = true;
+    }
+
+    if (nextItem) {
+        nextBtn.addEventListener("click", () => {
+            window.location.href = `/compendiums/item.html?id=${nextItem.id}&game=${nextItem.game}`;
+    });
+    } else {
+        nextBtn.disabled = true;
+    }
+
+
+
     const img = document.querySelector(".item-image");
     const spinner = document.querySelector(".spinner");
 
-    img.addEventListener("load", () => {
+    function hideSpinner() {
         img.classList.add("loaded");
         spinner.classList.add("hidden");
-    });
+    }
 
+    img.addEventListener("load", hideSpinner);
     img.addEventListener("error", () => {
         img.src = "/images/placeholder.png";
-        img.classList.add("loaded");
-        spinner.classList.add("hidden");
+        hideSpinner();
     });
+
+    if (img.complete && img.naturalHeight !== 0) {
+        hideSpinner();
+    }
+
 
 
 
@@ -106,7 +172,7 @@ async function init() {
     }
 
     setupMapControls(item.common_locations);
-    showItemLocations(item.common_locations);
+    showItemLocations(item.common_locations, item);
 
     const drops = document.querySelector(".drops");
     let statsHTML = "";
@@ -184,7 +250,9 @@ function switchTotkLayer(direction, locations) {
 
 
 
-function showItemLocations(locations) {
+function showItemLocations(locations, item) {
+    const isFromBOTW = botwItems.some(i => i.name === item.name);
+    const isFromTOTK = totkItems.some(i => i.name === item.name);
     const botwMapInner = document.querySelector(".botw-map .map-inner");
     const totkMap = document.querySelector(".totk-map");
     const totkMapInner = document.querySelector(".totk-map .map-inner");
@@ -237,8 +305,25 @@ function showItemLocations(locations) {
         }
     });
 
-    if (botwUsed) botwMapInner.parentElement.classList.add("active");
-    if (totkUsed) totkMap.classList.add("active");
+    if (isFromBOTW && botwUsed) {
+        botwMapInner.parentElement.classList.add("active");
+    } else {
+        botwMapInner.parentElement.classList.remove("active");
+    }
+
+    if (isFromTOTK && totkUsed) {
+        totkMap.classList.add("active");
+    } else {
+        totkMap.classList.remove("active");
+    }
+
+    const mapKey = document.querySelector(".map-key");
+    if (!totkMap.classList.contains("active")) {
+        mapKey.style.display = "none";
+    } else {
+        mapKey.style.display = "inline-block";
+    }
+
 }
 
 async function fetchCoordinates() {
@@ -250,6 +335,9 @@ async function fetchCoordinates() {
         return {};
     }
 }
+
+
+
 
 init();
 
