@@ -24,22 +24,15 @@ async function init() {
 function renderList(items) {
   const listContainer = document.querySelector(".compendium-list");
 
-  const uniqueByName = new Map();
-  items.forEach(item => {
-    if (!uniqueByName.has(item.name)) {
-      uniqueByName.set(item.name, item);
-    }
-  });
-
-  const uniqueItems = Array.from(uniqueByName.values());
-
-  listContainer.innerHTML = uniqueItems.map(item => `
+  listContainer.innerHTML = items.map(item => `
     <a href="/compendiums/item.html?id=${item.id}&game=${item.game}" class="compendium-card">
       <img src="${item.image}" alt="${item.name}" />
       <h2>${item.name}</h2>
+      <p class="game-label">Game: ${item.game}</p>
     </a>
   `).join("");
 }
+
 
 function setUpSearch() {
     const searchInput = document.querySelector(".search");

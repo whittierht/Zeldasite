@@ -71,8 +71,6 @@ async function init() {
         <span class="heart ${isFavorite ? "filled" : ""}">&#10084;</span>
         </button>
         <p class="item-category"><i>${item.category}</i></p>
-        <p class="item-games"><strong>Game(s):</strong> ${itemAppearances(item.name)}</p>
-
         <p class="item-description">${item.description || "No description available."}</p>
         <div class="image-wrapper">
         <div class="spinner"></div>
